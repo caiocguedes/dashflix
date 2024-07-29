@@ -3,6 +3,7 @@ import pandas as pd
 
 #df_netflix_titles = pd.read_csv('data/df_netflix_titles.csv')
 
+'''gráfico que lista os 20 países que mais lançaram filmes'''
 def countries_graph(df_netflix_titles):
     df_exploded = df_netflix_titles.explode(column='country')
     df_exploded['country'] = df_exploded['country'].apply(lambda x: x.strip())
@@ -24,6 +25,7 @@ def countries_graph(df_netflix_titles):
     fig.update_traces(marker_color='#A7C7E7')
     return fig
 
+'''widget com dropdown com lista dos gêneros contidos no dataframe'''
 def genres_dropdown(df):
     df_netflix_genre = df.copy(deep=True)
     df_netflix_genre.dropna(subset='listed_in', inplace=True)
@@ -35,7 +37,21 @@ def genres_dropdown(df):
     
     return df_netflix_genre_exploded['listed_in'].unique()
 
+'''filtro dos gêneros'''
 def filter_genres(row, filter_values):
     # Check if any of the filter values are in the list of genres
     return filter_values in row
+
+def boxplot_graph(df):
+    df_netflix_last_titles = df[df["release_year"] >= df['release_year'].max()-5]
+
+    fig = px.box(df_netflix_last_titles, 
+                x='release_year', 
+                y="rating_imdb", 
+                color='type',
+                width=700,
+                title="Distribuição das notas no IMDB \nnos últimos 5 anos agrupadas por tipo",
+                color_discrete_sequence=px.colors.qualitative.Dark24,
+                labels={'release_year':'Ano de lançamento', 'rating_imdb':'Nota no IMDB', 'type':'Tipo'})
+    return fig
 

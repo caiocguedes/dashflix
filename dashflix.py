@@ -8,11 +8,7 @@ from streamlit_navigation_bar import st_navbar
 df = pd.read_csv('data/df_netflix_titles.csv')
 
 navbar = st_navbar(["Home", "Filmes", "Séries", "Equipe"])
-#st.logo('/images/dashflix.png', link=None, icon_image=None)
-
-st.title("Dashflix")
-
-st.markdown("O dashboard da sua Netflix!")
+st.image('images/dashflix.png')
 
 with st.container():
          st.header(f"Lista dos 20 países que mais lançaram filmes")
@@ -29,6 +25,7 @@ with st.container():
 with st.container():
         st.header(f"Distribuição de notas do IMDB por tipo")
         
+        st.plotly_chart(boxplot_graph(df), use_container_width=True)
 
 
 # with st.sidebar:
