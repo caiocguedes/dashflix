@@ -1,7 +1,5 @@
 import streamlit as st
 import pandas as pd
-import datetime
-import plotly.express as px
 from graph_functions import *
 from streamlit_navigation_bar import st_navbar
 
@@ -16,6 +14,7 @@ with st.container():
             label="Selecione o gênero",
             options=genres_dropdown(df),
             index=0,
+            placeholder="Choose an option"
             )
          
          filtered_df = df[df['listed_in'].apply(lambda x: filter_genres(x, sel_genero))]

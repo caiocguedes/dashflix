@@ -1,5 +1,5 @@
 import plotly.express as px
-import pandas as pd
+import numpy as np
 
 #df_netflix_titles = pd.read_csv('data/df_netflix_titles.csv')
 
@@ -34,8 +34,10 @@ def genres_dropdown(df):
     df_netflix_genre_exploded = df_netflix_genre.explode(column='listed_in')
     df_netflix_genre_exploded['listed_in'] = df_netflix_genre_exploded['listed_in'].apply(lambda x: x.strip())
     df_netflix_genre_exploded['listed_in'] = df_netflix_genre_exploded['listed_in'].apply(lambda x: x.replace('[','').replace(']','').replace("' ","").replace("'","").replace('" ','').replace('"',''))
-    
-    return df_netflix_genre_exploded['listed_in'].unique()
+    list_genres = df_netflix_genre_exploded['listed_in'].unique()
+    list_genres = np.append(list_genres, [''])
+    list_genres.sort()
+    return list_genres
 
 '''filtro dos gêneros'''
 def filter_genres(row, filter_values):
