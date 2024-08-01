@@ -5,8 +5,10 @@ from streamlit_navigation_bar import st_navbar
 
 df = pd.read_csv('data/df_netflix_titles.csv')
 
+
 navbar = st_navbar(["Home", "Filmes", "Séries", "Equipe"])
 st.image('images/dashflix.png')
+st.logo('images/dashflix.png')
 
 with st.container():
          st.header(f"Lista dos 20 países que mais lançaram filmes")
@@ -23,10 +25,11 @@ with st.container():
 
 with st.container():
         st.header(f"Distribuição de notas do IMDB por tipo")
-        
+        years_list = set(df['release_year'].to_list())
+        st.select_slider('Selecione o intervalo de anos', options=years_list, value=[1980, 2000])
+
         st.plotly_chart(boxplot_graph(df), use_container_width=True)
-
-
+        
 # with st.sidebar:
 #     lista_moedas = []
 
