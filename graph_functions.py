@@ -44,8 +44,8 @@ def filter_genres(row, filter_values):
     # Check if any of the filter values are in the list of genres
     return filter_values in row
 
-def boxplot_graph(df):
-    df_netflix_last_titles = df[df["release_year"] >= df['release_year'].max()-5]
+def boxplot_graph(df, min_year, max_year):
+    df_netflix_last_titles = df[(df["release_year"] >= min_year) & (df["release_year"] <= max_year)]
 
     fig = px.box(df_netflix_last_titles, 
                 x='release_year', 
@@ -55,5 +55,23 @@ def boxplot_graph(df):
                 title="Distribuição das notas no IMDB \nnos últimos 5 anos agrupadas por tipo",
                 color_discrete_sequence=px.colors.qualitative.Dark24,
                 labels={'release_year':'Ano de lançamento', 'rating_imdb':'Nota no IMDB', 'type':'Tipo'})
+    return fig
+
+def histogram(df, min_year, max_year):
+    df_netflix_last_titles = df[(df["release_year"] >= min_year) & (df["release_year"] <= max_year)]
+
+    fig = px.histogram(df_netflix_last_titles, 
+                   x="rating_imdb", 
+                   color='type',
+                   labels={'rating_imdb':'Nota no IMDB', 'type':'Tipo'},
+                   color_discrete_sequence=px.colors.qualitative.Dark24,
+                   width=700,
+                   nbins=20, 
+                   barmode='stack',
+                   title="Histograma da distribuição das notas no IMDB agrupadas por tipo")
+    fig.data = fig.data[::-1]
+    fig.layout.legend.traceorder = 'reversed'
+    fig.update_yaxes(title='')
+    fig.update_layout(bargap=0.1)
     return fig
 

@@ -24,11 +24,18 @@ with st.container():
          st.plotly_chart(countries_graph(filtered_df), use_container_width=True)
 
 with st.container():
-        st.header(f"Distribuição de notas do IMDB por tipo")
-        years_list = set(df['release_year'].to_list())
-        st.select_slider('Selecione o intervalo de anos', options=years_list, value=[1980, 2000])
+        choice = st.radio("Com qual tipo de gráfico você quer analisar as notas do IMDB?", ["Boxplot", "Histograma"])
+        with st.container():
+                years_list = set(df['release_year'].to_list())
+                min_year, max_year = st.select_slider('Selecione o intervalo de anos', options=years_list, value=[1980, 2000])
+                if choice == "Boxplot":
+                        st.header(f"Distribuição de notas do IMDB por tipo - BOXPLOT")
+                        st.plotly_chart(boxplot_graph(df, min_year, max_year), use_container_width=True)
+                else:
+                #GRAFICO 2
+                        st.header(f"Distribuição de notas do IMDB por tipo - HISTOGRAMA")
+                        st.plotly_chart(histogram(df, min_year, max_year), use_container_width=True)
 
-        st.plotly_chart(boxplot_graph(df), use_container_width=True)
         
 # with st.sidebar:
 #     lista_moedas = []
