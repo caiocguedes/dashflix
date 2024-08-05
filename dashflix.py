@@ -10,7 +10,7 @@ urls = {"Github": "https://github.com/caiocguedes/dashflix", "Streamlit Docs": "
 
 st.set_page_config(
     page_title="Dashflix",
-    page_icon="images/dashflix.png"
+    page_icon="images/favicon.png"
 )
 
 page = st_navbar(
