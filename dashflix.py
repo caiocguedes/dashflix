@@ -31,10 +31,13 @@ with st.container():
          
          st.plotly_chart(countries_graph(filtered_df), use_container_width=True)
 
+st.divider()
 
 col1, col2 = st.columns(2)
 col1.markdown("![Alt Text](https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExMXliZGUwMmwxejdxcjdsd3UweXRmODR6Z2RxbXlncThiNGY4cG9hNyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/1vRCeaHbgATwA/giphy.gif)")
 col2.markdown("![Alt Text](https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExNTFhZHpmdzB1NmpuYjh4NmdlZG04ZDVhc3dzNGd3NTVwcnU3ZzFvMCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/CU8abIBThDh09NUg2a/giphy-downsized-large.gif)")
+st.caption("(Sim, sabemos que Game of Thrones é da HBO)")
+st.divider()
 
 with st.container():
         choice = st.radio("Qual tipo de análise de notas do IMDB você deseja visualizar?", ["Boxplot com distribuição das notas por ano", "Histograma com o acumulado das notas"])
