@@ -19,7 +19,7 @@ st.image('images/dashflix.png')
 
 
 with st.container():
-         st.markdown("<h1 style='text-align: center; color: black;'>O dashboard da sua Netflix!</h1>", unsafe_allow_html=True)
+         st.markdown("<h1 style='text-align: center;'>O dashboard da sua Netflix!</h1>", unsafe_allow_html=True)
          st.markdown("<h4>Lista dos 20 países que mais lançaram filmes - por gênero</h4>", unsafe_allow_html=True)
          sel_genero = st.selectbox(
             label="Selecione o gênero",

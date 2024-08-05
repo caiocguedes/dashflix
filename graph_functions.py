@@ -9,7 +9,6 @@ def countries_graph(df_netflix_titles):
     df_exploded['country'] = df_exploded['country'].apply(lambda x: x.strip())
     df_filtered = df_exploded[df_exploded['country'] != '']
     df_grouped = df_filtered.groupby(['country']).size().sort_values(ascending=False)
-    df_grouped
 
     df_netflix_country = df_grouped.rename_axis('country').reset_index(name='count').head(20)
 
