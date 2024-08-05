@@ -8,6 +8,10 @@ df = pd.read_csv('data/df_netflix_titles.csv')
 navbar = ["Github", "Streamlit Docs"]
 urls = {"Github": "https://github.com/caiocguedes/dashflix", "Streamlit Docs": "https://streamlit.io/"}
 
+st.set_page_config(
+    page_title="Dashflix",
+    page_icon="images/dashflix.png"
+)
 
 page = st_navbar(
         navbar,
@@ -36,7 +40,7 @@ st.divider()
 col1, col2 = st.columns(2)
 col1.markdown("![Alt Text](https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExMXliZGUwMmwxejdxcjdsd3UweXRmODR6Z2RxbXlncThiNGY4cG9hNyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/1vRCeaHbgATwA/giphy.gif)")
 col2.markdown("![Alt Text](https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExNTFhZHpmdzB1NmpuYjh4NmdlZG04ZDVhc3dzNGd3NTVwcnU3ZzFvMCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/CU8abIBThDh09NUg2a/giphy-downsized-large.gif)")
-st.caption("(Sim, sabemos que Game of Thrones é da HBO)")
+st.caption("<p align='center'>(Sim, sabemos que Game of Thrones é da HBO)</p>", unsafe_allow_html=True)
 st.divider()
 
 with st.container():

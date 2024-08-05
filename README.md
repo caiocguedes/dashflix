@@ -2,6 +2,15 @@
 
 Dashboard para estudos de filmes da Netflix
 
+## Alunos
+
+- Bruno Barbosa - bba@cesar.school
+- Caio Guedes - ccsg@cesar.school
+- Daniel Moares - dmms@cesar.school
+- João Paulo Veloso - jpgev@cesar.school
+- Thaís Rezende - trb@cesar.school
+    
+
 ## Objetivo
 
 Este dashboard foi construído apenas com objetivo acadêmico.
