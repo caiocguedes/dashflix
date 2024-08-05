@@ -5,91 +5,43 @@ from streamlit_navigation_bar import st_navbar
 
 df = pd.read_csv('data/df_netflix_titles.csv')
 
+navbar = ["Github", "Streamlit Docs"]
+urls = {"Github": "https://github.com/caiocguedes/dashflix", "Streamlit Docs": "https://streamlit.io/"}
 
-navbar = st_navbar(["Home", "Filmes", "Séries", "Equipe"])
+
+page = st_navbar(
+        navbar,
+        logo_path='images/dashflix.svg',
+        urls=urls
+)
+
 st.image('images/dashflix.png')
-st.logo('images/dashflix.png')
+
 
 with st.container():
-         st.header(f"Lista dos 20 países que mais lançaram filmes")
+         st.markdown("<h1 style='text-align: center; color: white;'>O dashboard da sua Netflix!</h1>", unsafe_allow_html=True)
+         st.write("Lista dos 20 países que mais lançaram filmes")
          sel_genero = st.selectbox(
             label="Selecione o gênero",
             options=genres_dropdown(df),
-            index=0,
-            placeholder="Choose an option"
+            index=0
             )
          
          filtered_df = df[df['listed_in'].apply(lambda x: filter_genres(x, sel_genero))]
          
          st.plotly_chart(countries_graph(filtered_df), use_container_width=True)
 
+
+col1, col2 = st.columns(2)
+col1.markdown("![Alt Text](https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExMXliZGUwMmwxejdxcjdsd3UweXRmODR6Z2RxbXlncThiNGY4cG9hNyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/1vRCeaHbgATwA/giphy.gif)")
+col2.markdown("![Alt Text](https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExNTFhZHpmdzB1NmpuYjh4NmdlZG04ZDVhc3dzNGd3NTVwcnU3ZzFvMCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/CU8abIBThDh09NUg2a/giphy-downsized-large.gif)")
+
 with st.container():
-        choice = st.radio("Com qual tipo de gráfico você quer analisar as notas do IMDB?", ["Boxplot", "Histograma"])
+        choice = st.radio("Qual tipo de análise de notas do IMDB você deseja visualizar?", ["Boxplot com distribuição das notas por ano", "Histograma com o acumulado das notas"])
         with st.container():
                 years_list = set(df['release_year'].to_list())
-                min_year, max_year = st.select_slider('Selecione o intervalo de anos', options=years_list, value=[1980, 2000])
-                if choice == "Boxplot":
-                        st.header(f"Distribuição de notas do IMDB por tipo - BOXPLOT")
+                min_year, max_year = st.select_slider('Selecione o intervalo (anos) desejado:', options=years_list, value=[1980, 2000])
+                if "Boxplot" in choice:
                         st.plotly_chart(boxplot_graph(df, min_year, max_year), use_container_width=True)
                 else:
-                #GRAFICO 2
-                        st.header(f"Distribuição de notas do IMDB por tipo - HISTOGRAMA")
                         st.plotly_chart(histogram(df, min_year, max_year), use_container_width=True)
-
-        
-# with st.sidebar:
-#     lista_moedas = []
-
-#     sel_ano = st.selectbox(
-#         label="Selecione o ano de análise:",
-#         options=[2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024],
-#         index=0,
-#     )
-#     st.write("Você selecionou:", sel_ano)
-
-#     # Checkbox de Moeda
-#     st.write("Selecione Moeda(s) para Análise")
-#     sel_usd = st.checkbox("USD Dolar", value=True)
-#     sel_eur = st.checkbox("Euro")
-#     sel_fsc = st.checkbox("CHG")
-    
-#     if sel_usd:
-#         lista_moedas.append("USD")
-#     if sel_eur:
-#         lista_moedas.append("EUR")
-#     if sel_fsc:
-#         lista_moedas.append("CHF")
-#     print(f" As moedas selecionadas são: {lista_moedas}")
-
-#     jan_1 = datetime.date(sel_ano, 1, 1)
-#     dec_31 = datetime.date(sel_ano, 12, 31)
-
-#     # Seleciona as datas de interesse da cotação
-#     day = st.date_input(
-#         "Selecione as datas que você deseja verificar a cotação do dolar (USD):",
-#         (jan_1, datetime.date(sel_ano, 1, 7)),
-#         jan_1,
-#         dec_31,
-#         format="MM.DD.YYYY",
-#     )
-#     print(day)
-
-# # Container para visualização da cotação do dolar!
-# with st.container():
-#     # Gráfico da cotação da(s) moeda(s)
-#     with st.container():
-#         st.header(f"Cotação das Moedas selecionadas")
-#         moedas = currency.get(lista_moedas, start=day[0], end=day[1])
-#         # FIGURA 1 - Realizar a cotação das moedas
-#         # Fazer gráfico da cotação
-#         fig1 = px.line(moedas, y=lista_moedas)
-#         st.plotly_chart(fig1, use_container_width=True)
-        
-#         # FIGURA 2 - Cotação do BTC
-#         st.header("Cotação do BTC")
-#         btc_data = fetch_btc_data()
-#         prices = btc_data['prices']
-#         btc_df = pd.DataFrame(prices, columns=['timestamp', 'price'])
-#         btc_df['timestamp'] = pd.to_datetime(btc_df['timestamp'], unit='ms')
-#         fig2 = px.line(btc_df, y='price')
-#         st.plotly_chart(fig2, use_container_width=True)
