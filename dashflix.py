@@ -19,8 +19,8 @@ st.image('images/dashflix.png')
 
 
 with st.container():
-         st.markdown("<h1 style='text-align: center; color: white;'>O dashboard da sua Netflix!</h1>", unsafe_allow_html=True)
-         st.write("Lista dos 20 países que mais lançaram filmes")
+         st.markdown("<h1 style='text-align: center; color: black;'>O dashboard da sua Netflix!</h1>", unsafe_allow_html=True)
+         st.markdown("<h4>Lista dos 20 países que mais lançaram filmes - por gênero</h4>", unsafe_allow_html=True)
          sel_genero = st.selectbox(
             label="Selecione o gênero",
             options=genres_dropdown(df),
@@ -40,11 +40,13 @@ st.caption("(Sim, sabemos que Game of Thrones é da HBO)")
 st.divider()
 
 with st.container():
-        choice = st.radio("Qual tipo de análise de notas do IMDB você deseja visualizar?", ["Boxplot com distribuição das notas por ano", "Histograma com o acumulado das notas"])
-        with st.container():
-                years_list = set(df['release_year'].to_list())
-                min_year, max_year = st.select_slider('Selecione o intervalo (anos) desejado:', options=years_list, value=[1980, 2000])
-                if "Boxplot" in choice:
-                        st.plotly_chart(boxplot_graph(df, min_year, max_year), use_container_width=True)
-                else:
-                        st.plotly_chart(histogram(df, min_year, max_year), use_container_width=True)
+    choice = st.radio("Qual tipo de análise de notas do IMDB você deseja visualizar?", ["Boxplot com distribuição das notas por ano de lançamento", "Histograma das notas"])
+    with st.container():
+        years_list = set(df['release_year'].to_list())
+        min_year, max_year = st.select_slider('Selecione o intervalo (anos) desejado:', options=years_list, value=[1990, 2000])
+        if "Boxplot" in choice:
+            st.markdown('<h4>Distribuição das Notas dos Filmes com Boxplot</h4>', unsafe_allow_html=True)
+            st.plotly_chart(boxplot_graph(df, min_year, max_year), use_container_width=True)
+        else:
+            st.markdown('<h4>Histograma das notas</h4>', unsafe_allow_html=True)
+            st.plotly_chart(histogram(df, min_year, max_year), use_container_width=True)

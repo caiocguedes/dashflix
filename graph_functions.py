@@ -22,7 +22,7 @@ def countries_graph(df_netflix_titles):
                 width=800)
     fig.update_layout(yaxis={'categoryorder':'total ascending'})
     fig.update_xaxes(visible=False)
-    fig.update_traces(marker_color='#A7C7E7')
+    fig.update_traces(marker_color='#E50914')
     return fig
 
 '''widget com dropdown com lista dos gêneros contidos no dataframe'''
@@ -54,7 +54,7 @@ def boxplot_graph(df, min_year, max_year):
                 color='type',
                 width=700,
                 title=None,
-                color_discrete_sequence=px.colors.qualitative.Dark24,
+                color_discrete_sequence=['#E50914', 'darkblue'],
                 labels={'release_year':'Ano de lançamento', 'rating_imdb':'Nota no IMDB', 'type':'Tipo'})
     return fig
 
@@ -66,7 +66,7 @@ def histogram(df, min_year, max_year):
                    x="rating_imdb", 
                    color='type',
                    labels={'rating_imdb':'Nota no IMDB', 'type':'Tipo'},
-                   color_discrete_sequence=px.colors.qualitative.Dark24,
+                   color_discrete_sequence=['#E50914', 'darkblue'],
                    width=700,
                    nbins=20, 
                    barmode='stack',
